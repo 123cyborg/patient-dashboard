@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patient Dashboard (Offline)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 10px;
+      background-color: #f0f8ff;
+    }
+    form {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, select, textarea {
+      display: block;
+      margin: 10px 0;
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 15px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    #suggestion {
+      margin-top: 20px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h2>Add Patient</h2>
+  <form id="patientForm">
+    <input type="text" placeholder="Name" id="name" required>
+    <input type="number" placeholder="Age" id="age" required>
+    <select id="gender">
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+    <textarea id="symptomDescription" placeholder="Symptom Description" required></textarea>
+    <input type="text" id="diseaseDiagnosed" placeholder="Diagnosed Disease" required>
+    <select id="severity">
+      <option>Mild</option>
+      <option>Moderate</option>
+      <option>Severe</option>
+    </select>
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="suggestion"></div>
+
+  <script>
+    const form = document.getElementById('patientForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const disease = document.getElementById('diseaseDiagnosed').value;
+      const severity = document.getElementById('severity').value;
+
+      const medicines = {
+        Mild: { name: "Paracetamol", dosage: "1 tablet twice a day" },
+        Moderate: { name: "Amoxicillin", dosage: "500mg thrice a day" },
+        Severe: { name: "Azithromycin", dosage: "500mg once a day for 3 days" }
+      };
+
+      const suggestion = medicines[severity] || { name: "Consult doctor", dosage: "N/A" };
+      document.getElementById('suggestion').innerText = 
+        `Hello ${name}, Suggested Medicine: ${suggestion.name}, Dosage: ${suggestion.dosage}`;
+    });
+  </script>
+</body>
+</html>
